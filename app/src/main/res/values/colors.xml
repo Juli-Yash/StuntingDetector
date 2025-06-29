@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Umum -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="teal_700">#018786</color>
+    <color name="gray">#808080</color>
+    <color name="ripple_light">#66FFFFFF</color> <!-- Putih transparan -->
+    <color name="ripple_mask">#FFFFFF</color>     <!-- Mask solid putih -->
+    <color name="green_primary">#4CAF50</color>
+
+    <!-- ==================== BACKGROUND ==================== -->
+    <color name="background_main">#4CC9F0</color> <!-- vivid_sky_blue -->
+    <color name="background_secondary">#FFFFFF</color>
+    <color name="background_light">#FFFFFF</color>
+    <color name="background_dark">#1A1A1A</color>
+
+    <!-- ==================== APP BAR ==================== -->
+    <color name="appbar">#3A0CA3</color> <!-- zaffre -->
+
+    <!-- ==================== CARD ==================== -->
+    <color name="card_background">#F1F1F1</color>
+    <color name="card_border">#3F37C9</color> <!-- platina_blue -->
+    <color name="card_shadow">#560BAD</color> <!-- cylesler_blue -->
+    <color name="card_bg">#F1F1F1</color> <!-- alias -->
+
+    <!-- ==================== BUTTON ==================== -->
+    <color name="button_primary">#F72585</color> <!-- rose -->
+    <color name="button_secondary">#4895EF</color> <!-- chefchaouen_blue -->
+    <color name="text_on_button">#FFFFFF</color>
+
+    <!-- ==================== TEXT ==================== -->
+    <color name="text_primary">#3F37C9</color> <!-- platina_blue -->
+    <color name="text_secondary">#480CA8</color> <!-- dark_blue -->
+    <color name="text_title">#212121</color>
+    <color name="text_subtitle">#757575</color>
+
+    <!-- ==================== INPUT & EFFECT ==================== -->
+    <color name="input_border">#7209B7</color> <!-- grape -->
+    <color name="ripple_color">#B5179E</color> <!-- fordano -->
+
+    <!-- ==================== STATE (Status) ==================== -->
+    <color name="error">#D32F2F</color>
+    <color name="success">#388E3C</color>
+    <color name="warning">#FFA000</color>
+    <color name="info">#1976D2</color>
+
+    <!-- ==================== ICON ==================== -->
+    <color name="icon_default">#3F37C9</color>
+    <color name="icon_active">#F72585</color>
+    <color name="icon_inactive">#BDBDBD</color>
+    <color name="icon_appbar">#FFFFFF</color>
+    <color name="icon_secondary">#7209B7</color>
+    <color name="icon_success">#388E3C</color>
+    <color name="icon_error">#D32F2F</color>
+    <color name="icon_warning">#FFA000</color>
+    <color name="loading_spinner">#4895EF</color>
+
+    <!-- ==================== STOK / PALET DASAR ==================== -->
+    <color name="rose">#F72585</color>
+    <color name="fordano">#B5179E</color>
+    <color name="grape">#7209B7</color>
+    <color name="cylesler_blue">#560BAD</color>
+    <color name="dark_blue">#480CA8</color>
+    <color name="zaffre">#3A0CA3</color>
+    <color name="platina_blue">#3F37C9</color>
+    <color name="neon_blue">#4361EE</color>
+    <color name="chefchaouen_blue">#4895EF</color>
+    <color name="vivid_sky_blue">#4CC9F0</color>
+
+</resources>

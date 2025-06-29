@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light">
+
+    <!-- ScrollView isi form -->
+    <ScrollView
+        android:id="@+id/scrollForm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Form Deteksi Stunting"
+                android:textColor="@color/text_title"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Card Container -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:background="@drawable/rounded_white_card">
+
+                <!-- Semua EditText -->
+                <EditText android:id="@+id/etNama" android:hint="Nama Anak" style="@style/CustomInputField" />
+                <EditText android:id="@+id/etJenisKelamin" android:hint="Jenis Kelamin" style="@style/CustomInputField" />
+                <EditText android:id="@+id/etUmur" android:hint="Umur (bulan)" android:inputType="number" style="@style/CustomInputField" />
+                <EditText android:id="@+id/etBerat" android:hint="Berat Badan (kg)" android:inputType="numberDecimal" style="@style/CustomInputField" />
+                <EditText android:id="@+id/etTinggi" android:hint="Tinggi Badan (cm)" android:inputType="numberDecimal" style="@style/CustomInputField" />
+                <EditText android:id="@+id/etLila" android:hint="Lingkar Lengan Atas (cm)" android:inputType="numberDecimal" style="@style/CustomInputField" />
+                <EditText android:id="@+id/etLingkarKepala" android:hint="Lingkar Kepala (cm)" android:inputType="numberDecimal" style="@style/CustomInputField" />
+                <EditText android:id="@+id/etKecamatan" android:hint="Kecamatan" style="@style/CustomInputField" />
+                <EditText android:id="@+id/etJumlahVitA" android:hint="Jumlah Vitamin A" android:inputType="number" style="@style/CustomInputField" />
+                <EditText android:id="@+id/etPendidikanIbu" android:hint="Pendidikan Ibu" style="@style/CustomInputField" />
+                <EditText android:id="@+id/etPendidikanAyah" android:hint="Pendidikan Ayah" style="@style/CustomInputField" />
+                <EditText android:id="@+id/etStatusGizi" android:hint="Status Gizi (opsional)" style="@style/CustomInputField" />
+
+                <!-- Tombol -->
+                <Button
+                    android:id="@+id/btnKirim"
+                    android:text="Deteksi Stunting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_btn_rounded"
+                    android:backgroundTint="@color/button_primary"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

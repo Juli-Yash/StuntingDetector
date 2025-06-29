@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light">
+
+    <!-- Konten ScrollView -->
+    <ScrollView
+        android:id="@+id/mainScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/appbar"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp"
+                android:elevation="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hallo,\nUsername"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_user"
+                    android:tint="@color/icon_appbar"/>
+            </LinearLayout>
+
+            <!-- Kartu Profil -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/card_bg"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ganti Profil"
+                    android:textColor="@color/text_title"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Fitur -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fitur"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_title"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="24dp">
+
+                <!-- Fitur 1 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/card_bg"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_gizi"
+                        android:tint="@color/icon_default" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Rekomendasi Gizi"
+                        android:textColor="@color/text_subtitle"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Fitur 2 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/card_bg"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_budget"
+                        android:tint="@color/icon_default" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Penganggaran Makanan"
+                        android:textColor="@color/text_subtitle"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Informasi Kesehatan -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Informasi Kesehatan"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_title"
+                android:layout_marginBottom="8dp" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/card_bg"
+                        android:src="@drawable/home_info1" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/card_bg"
+                        android:src="@drawable/home_info2" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Riwayat Deteksi -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Riwayat Deteksi"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_title"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/card_bg"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:text="25 Juni 2025 - Normal"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    android:padding="6dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:text="12 Juni 2025 - Berisiko Stunting"
+                    android:textColor="@color/error"
+                    android:textSize="14sp"
+                    android:padding="6dp"
+                    android:layout_marginStart="12dp" />
+            </LinearLayout>
+
+            <!-- Tips Hari Ini -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tips Hari Ini"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_title"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/card_bg"
+                android:text="Pastikan anak tidur cukup 8–10 jam setiap malam untuk mendukung pertumbuhan optimal dan Berikan makanan bergizi seimbang yang kaya protein, vitamin, dan mineral setiap hari"
+                android:textColor="@color/text_subtitle" />
+
+            <!-- Tombol -->
+            <Button
+                android:id="@+id/btn_detect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Deteksi Stunting"
+                android:background="@drawable/bg_btn_rounded"
+                android:backgroundTint="@color/button_primary"
+                android:textColor="@color/text_on_button"
+                android:padding="12dp"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/btn_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lihat Riwayat Lengkap"
+                android:background="@drawable/bg_btn_rounded"
+                android:backgroundTint="@color/button_secondary"
+                android:textColor="@color/text_on_button"
+                android:padding="12dp"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

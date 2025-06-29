@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Tema utama Aplikasi - Versi Malam -->
+    <style name="Theme.AplikasiStunting" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:windowBackground">@color/background_dark</item>
+        <item name="colorPrimary">@color/zaffre</item>
+        <item name="colorPrimaryDark">@color/dark_blue</item>
+        <item name="colorAccent">@color/vivid_sky_blue</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/chefchaouen_blue</item>
+    </style>
+
+    <!-- Tema untuk Splash - Versi Malam -->
+    <style name="Theme.MyApp.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_splash</item>
+        <item name="postSplashScreenTheme">@style/Theme.AplikasiStunting</item>
+    </style>
+</resources>
