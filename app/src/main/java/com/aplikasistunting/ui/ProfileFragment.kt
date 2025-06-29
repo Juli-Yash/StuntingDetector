@@ -1,5 +1,6 @@
 package com.aplikasistunting.ui
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
@@ -7,6 +8,7 @@ import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -40,7 +42,6 @@ class ProfileFragment : Fragment() {
         val factory = ChildViewModelFactory(repository, parentId)
         viewModel = ViewModelProvider(this, factory)[ChildViewModel::class.java]
 
-        // ✅ Tampilkan Data Orang Tua
         lifecycleScope.launch {
             val parent = parentDao.getParentById(parentId)
             parent?.let {
@@ -57,23 +58,40 @@ class ProfileFragment : Fragment() {
                     }
                 }
 
+                val containerLayout = LinearLayout(requireContext()).apply {
+                    orientation = LinearLayout.VERTICAL
+                }
+
                 val parentText = TextView(requireContext()).apply {
                     text = "\uD83D\uDC68\u200D\uD83D\uDC69\u200D\uD83D\uDC67 Orang Tua:\nNama: ${it.nama}\nEmail: ${it.email}\nID: ${it.id}"
                     setTextColor(Color.BLACK)
                     setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+                    setPadding(0, 0, 0, 24)
                 }
 
-                card.addView(parentText)
+                val logoutBtn = createStyledButton("Logout", R.drawable.btn_red).apply {
+                    setOnClickListener {
+                        AlertDialog.Builder(requireContext())
+                            .setTitle("Konfirmasi Logout")
+                            .setMessage("Apakah Anda yakin ingin logout?")
+                            .setPositiveButton("Ya") { _, _ ->
+                                session.clearSession()
+                                requireActivity().finish()
+                                startActivity(Intent(requireContext(), AuthActivity::class.java))
+                            }
+                            .setNegativeButton("Batal", null)
+                            .show()
+                    }
+                }
+
+                containerLayout.addView(parentText)
+                containerLayout.addView(logoutBtn)
+                card.addView(containerLayout)
                 layoutContainer.addView(card)
             }
         }
 
-        // ✅ Tombol Tambah Anak
-        val btnTambahAnak = Button(requireContext()).apply {
-            text = "Tambah Anak"
-            setBackgroundColor(Color.parseColor("#2196F3"))
-            setTextColor(Color.WHITE)
-            setPadding(16, 8, 16, 8)
+        val btnTambahAnak = createStyledButton("Tambah Anak", R.drawable.btn_primary).apply {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -86,9 +104,7 @@ class ProfileFragment : Fragment() {
         }
         layoutContainer.addView(btnTambahAnak)
 
-        // ✅ Observe Anak-anak
         viewModel.allChildren.observe(viewLifecycleOwner) { children ->
-            // Hindari crash jika count < 2
             if (layoutContainer.childCount > 2) {
                 layoutContainer.removeViews(2, layoutContainer.childCount - 2)
             }
@@ -123,11 +139,7 @@ class ProfileFragment : Fragment() {
                     setPadding(0, dpToPx(4f).toInt(), 0, 0)
                 }
 
-                val btnGunakan = Button(requireContext()).apply {
-                    text = "Gunakan"
-                    setBackgroundColor(Color.parseColor("#4CAF50"))
-                    setTextColor(Color.WHITE)
-                    setPadding(16, 8, 16, 8)
+                val btnGunakan = createStyledButton("Gunakan", R.drawable.btn_green).apply {
                     setOnClickListener {
                         lifecycleScope.launch {
                             viewModel.setActive(child.id)
@@ -136,15 +148,11 @@ class ProfileFragment : Fragment() {
                     }
                 }
 
-                val btnHapus = Button(requireContext()).apply {
-                    text = "Hapus"
-                    setBackgroundColor(Color.parseColor("#F44336"))
-                    setTextColor(Color.WHITE)
-                    setPadding(16, 8, 16, 8)
+                val btnHapus = if (!child.isActive) createStyledButton("Hapus", R.drawable.btn_red).apply {
                     setOnClickListener {
                         AlertDialog.Builder(requireContext())
-                            .setTitle("Hapus Anak")
-                            .setMessage("Yakin ingin menghapus data anak ini?")
+                            .setTitle("Konfirmasi Penghapusan")
+                            .setMessage("Apakah Anda yakin ingin menghapus data anak ini?")
                             .setPositiveButton("Ya") { _, _ ->
                                 lifecycleScope.launch {
                                     viewModel.delete(child)
@@ -154,12 +162,12 @@ class ProfileFragment : Fragment() {
                             .setNegativeButton("Batal", null)
                             .show()
                     }
-                }
+                } else null
 
                 verticalLayout.addView(textInfo)
                 verticalLayout.addView(statusText)
                 if (!child.isActive) verticalLayout.addView(btnGunakan)
-                verticalLayout.addView(btnHapus)
+                btnHapus?.let { verticalLayout.addView(it) }
 
                 card.addView(verticalLayout)
                 layoutContainer.addView(card)
@@ -194,6 +202,21 @@ class ProfileFragment : Fragment() {
             }
             .setNegativeButton("Batal", null)
             .show()
+    }
+
+    private fun createStyledButton(textValue: String, backgroundDrawable: Int): Button {
+        return Button(requireContext()).apply {
+            text = textValue
+            background = ContextCompat.getDrawable(requireContext(), backgroundDrawable)
+            setTextColor(Color.WHITE)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                topMargin = dpToPx(8f).toInt()
+            }
+        }
     }
 
     private fun dpToPx(dp: Float): Float {

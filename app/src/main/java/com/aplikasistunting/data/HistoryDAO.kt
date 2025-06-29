@@ -16,4 +16,7 @@ interface HistoryDao {
 
     @Query("SELECT * FROM history ORDER BY id DESC")
     fun getAll(): LiveData<List<HistoryEntity>>
+
+    @Query("SELECT * FROM history WHERE childId = :childId ORDER BY tanggal DESC")
+    suspend fun getHistoryByChildId(childId: Int): List<HistoryEntity>
 }

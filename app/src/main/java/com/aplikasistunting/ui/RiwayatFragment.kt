@@ -8,13 +8,11 @@ import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.aplikasistunting.R
+import com.aplikasistunting.auth.SessionManager
 import com.aplikasistunting.data.AppDatabase
-import com.aplikasistunting.repository.HistoryRepository
 import com.aplikasistunting.viewmodel.HistoryViewModel
-import com.aplikasistunting.viewmodel.HistoryViewModelFactory
 import kotlinx.coroutines.launch
 
 class RiwayatFragment : Fragment() {
@@ -27,85 +25,98 @@ class RiwayatFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_riwayat, container, false)
         val layoutRiwayat = view.findViewById<LinearLayout>(R.id.layoutRiwayat)
 
-        val dao = AppDatabase.getDatabase(requireContext()).historyDao()
-        val repository = HistoryRepository(dao)
-        val factory = HistoryViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, factory)[HistoryViewModel::class.java]
+        val session = SessionManager(requireContext())
+        val childId = session.getActiveChildId()
 
-        viewModel.allHistory.observe(viewLifecycleOwner) { list ->
+        val dao = AppDatabase.getDatabase(requireContext()).historyDao()
+
+        lifecycleScope.launch {
+            val historyList = dao.getHistoryByChildId(childId) // filter sesuai anak aktif
+
             layoutRiwayat.removeAllViews()
 
-            list.forEach { history ->
-                val card = CardView(requireContext()).apply {
-                    radius = dpToPx(12f)
-                    setContentPadding(32, 32, 32, 32)
-                    cardElevation = dpToPx(4f)
-                    useCompatPadding = true
-                    background = ContextCompat.getDrawable(requireContext(), R.drawable.card_bg)
-                    layoutParams = ViewGroup.MarginLayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    ).apply {
-                        bottomMargin = dpToPx(16f).toInt()
-                    }
+            if (historyList.isEmpty()) {
+                val tv = TextView(requireContext()).apply {
+                    text = "Belum ada riwayat untuk anak ini."
+                    setTextColor(Color.DKGRAY)
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                    setPadding(32, 32, 32, 32)
                 }
-
-                val verticalLayout = LinearLayout(requireContext()).apply {
-                    orientation = LinearLayout.VERTICAL
-                }
-
-                val textNamaTanggal = TextView(requireContext()).apply {
-                    text = "Nama: ${history.nama}\nTanggal: ${history.tanggal}"
-                    setTextColor(Color.BLACK)
-                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
-                }
-
-                val textStatus = TextView(requireContext()).apply {
-                    text = "Stunting: ${history.statusStunting}\nUnderweight: ${history.statusUnderweight}\nWasting: ${history.statusWasting}"
-                    setTextColor(Color.BLACK)
-                    visibility = View.GONE
-                    setPadding(0, dpToPx(8f).toInt(), 0, 0)
-                }
-
-                val expandButton = createStyledButton("Sembunyikan", R.drawable.btn_green).apply {
-                    visibility = View.GONE
-                }
-
-                val deleteButton = createStyledButton("Hapus", R.drawable.btn_red).apply {
-                    visibility = View.GONE
-                    setOnClickListener {
-                        lifecycleScope.launch {
-                            viewModel.delete(history)
+                layoutRiwayat.addView(tv)
+            } else {
+                historyList.forEach { history ->
+                    val card = CardView(requireContext()).apply {
+                        radius = dpToPx(12f)
+                        setContentPadding(32, 32, 32, 32)
+                        cardElevation = dpToPx(4f)
+                        useCompatPadding = true
+                        background = ContextCompat.getDrawable(requireContext(), R.drawable.card_bg)
+                        layoutParams = ViewGroup.MarginLayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        ).apply {
+                            bottomMargin = dpToPx(16f).toInt()
                         }
                     }
-                }
 
-                val showDetailButton = createStyledButton("Lihat Detail", R.drawable.btn_green).apply {
-                    setOnClickListener {
-                        textStatus.visibility = View.VISIBLE
-                        expandButton.visibility = View.VISIBLE
-                        deleteButton.visibility = View.VISIBLE
-                        this.visibility = View.GONE
+                    val verticalLayout = LinearLayout(requireContext()).apply {
+                        orientation = LinearLayout.VERTICAL
                     }
-                }
 
-                expandButton.setOnClickListener {
-                    textStatus.visibility = View.GONE
-                    expandButton.visibility = View.GONE
-                    deleteButton.visibility = View.GONE
-                    showDetailButton.visibility = View.VISIBLE
-                }
+                    val textNamaTanggal = TextView(requireContext()).apply {
+                        text = "Nama: ${history.nama}\nTanggal: ${history.tanggal}"
+                        setTextColor(Color.BLACK)
+                        setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+                    }
 
-                verticalLayout.apply {
-                    addView(textNamaTanggal)
-                    addView(showDetailButton)
-                    addView(textStatus)
-                    addView(expandButton)
-                    addView(deleteButton)
-                }
+                    val textStatus = TextView(requireContext()).apply {
+                        text = "Stunting: ${history.statusStunting}\nUnderweight: ${history.statusUnderweight}\nWasting: ${history.statusWasting}"
+                        setTextColor(Color.BLACK)
+                        visibility = View.GONE
+                        setPadding(0, dpToPx(8f).toInt(), 0, 0)
+                    }
 
-                card.addView(verticalLayout)
-                layoutRiwayat.addView(card)
+                    val expandButton = createStyledButton("Sembunyikan", R.drawable.btn_green).apply {
+                        visibility = View.GONE
+                    }
+
+                    val deleteButton = createStyledButton("Hapus", R.drawable.btn_red).apply {
+                        visibility = View.GONE
+                        setOnClickListener {
+                            lifecycleScope.launch {
+                                dao.delete(history)
+                                layoutRiwayat.removeView(card) // update tampilan setelah hapus
+                            }
+                        }
+                    }
+
+                    val showDetailButton = createStyledButton("Lihat Detail", R.drawable.btn_green).apply {
+                        setOnClickListener {
+                            textStatus.visibility = View.VISIBLE
+                            expandButton.visibility = View.VISIBLE
+                            deleteButton.visibility = View.VISIBLE
+                            this.visibility = View.GONE
+                        }
+                    }
+
+                    expandButton.setOnClickListener {
+                        textStatus.visibility = View.GONE
+                        expandButton.visibility = View.GONE
+                        deleteButton.visibility = View.GONE
+                        showDetailButton.visibility = View.VISIBLE
+                    }
+
+                    verticalLayout.apply {
+                        addView(textNamaTanggal)
+                        addView(showDetailButton)
+                        addView(textStatus)
+                        addView(expandButton)
+                        addView(deleteButton)
+                    }
+
+                    card.addView(verticalLayout)
+                    layoutRiwayat.addView(card)
+                }
             }
         }
 

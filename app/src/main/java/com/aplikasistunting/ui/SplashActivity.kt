@@ -15,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
         val intent = if (session.isLoggedIn()) {
             Intent(this, MainActivity::class.java)
         } else {
-            Intent(this, AuthActivity::class.java) // menampilkan login/register
+            Intent(this, AuthActivity::class.java)
         }
 
         startActivity(intent)

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.aplikasistunting.auth.SessionManager
 import com.aplikasistunting.R
 import com.aplikasistunting.data.AppDatabase
 import com.aplikasistunting.data.HistoryEntity
@@ -54,6 +55,9 @@ class FormFragment : Fragment() {
         val etStatusGizi = view.findViewById<EditText>(R.id.etStatusGizi)
         val btnKirim = view.findViewById<Button>(R.id.btnKirim)
 
+        val session = SessionManager(requireContext())
+        val childId = session.getActiveChildId()
+
         btnKirim.setOnClickListener {
             try {
                 val request = DetectionRequest(
@@ -85,7 +89,8 @@ class FormFragment : Fragment() {
                                     nama = request.nama,
                                     statusStunting = res.status_stunting,
                                     statusUnderweight = res.status_underweight,
-                                    statusWasting = res.status_wasting
+                                    statusWasting = res.status_wasting,
+                                    childId = childId // BENAR
                                 )
 
                                 // Simpan ke database via ViewModel

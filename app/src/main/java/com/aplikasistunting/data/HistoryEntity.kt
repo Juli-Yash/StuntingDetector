@@ -10,5 +10,6 @@ data class HistoryEntity(
     val nama: String,
     val statusStunting: String,
     val statusUnderweight: String,
-    val statusWasting: String
+    val statusWasting: String,
+    val childId: Int
 )

@@ -30,8 +30,13 @@ class LoginFragment : Fragment() {
         val dao = AppDatabase.getDatabase(requireContext()).parentDao()
 
         btnLogin.setOnClickListener {
-            val email = emailInput.text.toString()
-            val password = passwordInput.text.toString()
+            val email = emailInput.text.toString().trim()
+            val password = passwordInput.text.toString().trim()
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(requireContext(), "Email dan Password tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             lifecycleScope.launch {
                 val parent = dao.login(email, password)

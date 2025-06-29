@@ -30,6 +30,7 @@
                 android:elevation="4dp">
 
                 <TextView
+                    android:id="@+id/header_username"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -56,6 +57,7 @@
                 android:padding="16dp">
 
                 <TextView
+                    android:id="@+id/profile_child_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ganti Profil"
@@ -179,6 +181,7 @@
                 android:layout_marginBottom="8dp" />
 
             <LinearLayout
+                android:id="@+id/riwayat_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -246,6 +249,18 @@
                 android:textColor="@color/text_on_button"
                 android:padding="12dp"
                 android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LOGOUT"
+                android:background="@drawable/btn_red"
+                android:backgroundTint="@color/error"
+                android:textColor="@color/text_on_button"
+                android:padding="12dp"
+                android:layout_marginTop="8dp" />
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

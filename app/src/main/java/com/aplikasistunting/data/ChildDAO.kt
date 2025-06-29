@@ -26,6 +26,9 @@ interface ChildDao {
     @Query("SELECT * FROM child")
     suspend fun getAllChildrenOnce(): List<ChildEntity>
 
+    @Query("SELECT * FROM child WHERE id = :childId LIMIT 1")
+    suspend fun getChildById(childId: Int): ChildEntity?
+
     @Query("SELECT * FROM child WHERE isActive = 1 LIMIT 1")
     fun getActiveChild(): LiveData<ChildEntity?>
 
